@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Mapache Bigotón - Gestión de Citas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* Fondo blanco */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f8ff; /* Azul claro para el fondo del formulario */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #005f99; /* Azul oscuro para el título */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #005f99; /* Azul oscuro para los textos */
+        }
+        input, select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #005f99; /* Bordes azules */
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007acc; /* Azul para el botón */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005f99; /* Azul más oscuro al pasar el cursor */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>El Mapache Bigotón - Gestión de Citas</h1>
+        <form action="/submit-cita" method="post">
+            <label for="cliente">Nombre del Cliente:</label>
+            <input type="text" id="cliente" name="cliente" placeholder="Nombre completo" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono de contacto" required>
+
+            <label for="servicio">Servicio:</label>
+            <select id="servicio" name="servicio" required>
+                <option value="">Seleccionar servicio</option>
+                <option value="Corte de cabello">Corte de cabello</option>
+                <option value="Afeitado">Afeitado</option>
+                <option value="Corte y barba">Corte y barba</option>
+                <option value="Tinte">Tinte</option>
+            </select>
+
+            <label for="costo">Costo del Servicio:</label>
+            <input type="number" id="costo" name="costo" placeholder="Costo en pesos" required>
+
+            <label for="fecha">Fecha de la Cita:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="hora">Hora de la Cita:</label>
+            <input type="time" id="hora" name="hora" required>
+
+            <button type="submit">Registrar Cita</button>
+        </form>
+    </div>
+</body>
+</html>
