@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Fondo blanco */
+            background-color: #ffffff;
             margin: 0;
             padding: 0;
         }
@@ -15,13 +15,17 @@
             max-width: 800px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #f0f8ff; /* Azul claro para el fondo del formulario */
+            background-color: #f0f8ff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            display: none; /* Oculta todas las pantallas inicialmente */
         }
-        h1 {
+        .container.active {
+            display: block; /* Solo la pantalla activa será visible */
+        }
+        h1, p {
             text-align: center;
-            color: #005f99; /* Azul oscuro para el título */
+            color: #005f99;
         }
         form {
             display: flex;
@@ -30,18 +34,18 @@
         label {
             margin: 10px 0 5px;
             font-weight: bold;
-            color: #005f99; /* Azul oscuro para los textos */
+            color: #005f99;
         }
         input, select {
             padding: 10px;
             font-size: 16px;
             border-radius: 4px;
-            border: 1px solid #005f99; /* Bordes azules */
+            border: 1px solid #005f99;
         }
         button {
             margin-top: 20px;
             padding: 10px;
-            background-color: #007acc; /* Azul para el botón */
+            background-color: #007acc;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -49,14 +53,22 @@
             font-size: 16px;
         }
         button:hover {
-            background-color: #005f99; /* Azul más oscuro al pasar el cursor */
+            background-color: #005f99;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>El Mapache Bigotón - Gestión de Citas</h1>
-        <form action="/submit-cita" method="post">
+    <!-- Pantalla de bienvenida -->
+    <div id="welcome-screen" class="container active">
+        <h1>¡Bienvenido a El Mapache Bigotón!</h1>
+        <p>Presiona el botón para registrar una cita.</p>
+        <button onclick="showForm()">Registrar Cita</button>
+    </div>
+
+    <!-- Pantalla de registro de cita -->
+    <div id="register-screen" class="container">
+        <h1>El Mapache Bigotón - Registro de Citas</h1>
+        <form id="citaForm">
             <label for="cliente">Nombre del Cliente:</label>
             <input type="text" id="cliente" name="cliente" placeholder="Nombre completo" required>
 
@@ -81,8 +93,49 @@
             <label for="hora">Hora de la Cita:</label>
             <input type="time" id="hora" name="hora" required>
 
-            <button type="submit">Registrar Cita</button>
+            <button type="button" onclick="registrarCita()">Registrar Cita</button>
         </form>
     </div>
+
+    <!-- Pantalla de confirmación -->
+    <div id="confirmation-screen" class="container">
+        <h1>¡Registro Exitoso!</h1>
+        <p id="resumen-cita"></p>
+        <button onclick="showForm()">Registrar otra Cita</button>
+    </div>
+
+    <script>
+        // Función para mostrar la pantalla de registro de cita
+        function showForm() {
+            document.getElementById('welcome-screen').classList.remove('active');
+            document.getElementById('confirmation-screen').classList.remove('active');
+            document.getElementById('register-screen').classList.add('active');
+        }
+
+        // Función para registrar la cita
+        async function registrarCita() {
+            const cliente = document.getElementById('cliente').value;
+            const telefono = document.getElementById('telefono').value;
+            const servicio = document.getElementById('servicio').value;
+            const costo = document.getElementById('costo').value;
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+
+            // Mostrar el resumen en la pantalla de confirmación
+            const resumenCita = `
+                Cliente: ${cliente}<br>
+                Teléfono: ${telefono}<br>
+                Servicio: ${servicio}<br>
+                Costo: $${costo}<br>
+                Fecha: ${fecha}<br>
+                Hora: ${hora}
+            `;
+            document.getElementById('resumen-cita').innerHTML = resumenCita;
+
+            // Cambiar a la pantalla de confirmación
+            document.getElementById('register-screen').classList.remove('active');
+            document.getElementById('confirmation-screen').classList.add('active');
+        }
+    </script>
 </body>
 </html>
